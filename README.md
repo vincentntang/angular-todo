@@ -1,26 +1,41 @@
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.3.
+## Install
 
-## Development server
+- npm install
+- ng serve
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Notes of things work
 
-## Code scaffolding
+![](https://imgur.com/T3TODcu)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Infrastructure
 
-## Build
+- About
+- Home
+  - Header
+  - Todos
+    - AddToDo
+    - Todo-item (Many)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### OnLoad
 
-## Running unit tests
+When the app starts, `ngOnInit` gets called under `todos` which grabs in the service, the top 5 items in `json.typicode`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Creating a Todo
 
-## Running end-to-end tests
+When you create a todo, the following happens:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+1: ADD-TODO_onSubmit -> form gets submitted gets executed, sending up the binded `title` payload upward
+2: TODOs_addToDo -> catches it, via the same keyword `addToDo`. It then calls a service, that's been dependency injected into the app
+3: SERVICE_addToDo -> nothing right now
 
-## Further help
+### Deleting a Todo
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+1: TODO-ITEM_onDelete -> this gets called at child level. It emits back up a `TODO` that's been passed to it one levle up in the HTML. It calls the function in the HTML, which emits the event back up.
+2: TODOs_deleteToDo -> `deleteToDo` is the same keyword it reference. From here, it finds which `todo` to remove, removes locally using filter. Calls endpoint
+3: SERVICE_deleteToDo -> nothing right now
+
+### Checking a Todo
+
+1: TODO-Item_onToggle -> sets the status flag here
+2: SERVICE_toggleCompleted -> Nothing as of now

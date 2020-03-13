@@ -17,6 +17,7 @@ export class TodosComponent implements OnInit {
     this.todoService.getTodos().subscribe(todos => {
       this.todos = todos;
     });
+    console.log(`TODOs - ngOnInit`);
   }
 
   deleteTodo(todo: Todo) {
@@ -24,11 +25,13 @@ export class TodosComponent implements OnInit {
     this.todos = this.todos.filter(t => t.id !== todo.id);
     // Remove from server
     this.todoService.deleteTodo(todo).subscribe();
+    console.log(`TODOs - deleteToDo`, todo);
   }
 
   addTodo(todo: Todo) {
     this.todoService.addTodo(todo).subscribe(todo => {
       this.todos.push(todo);
     });
+    console.log(`TODOs - addToDo`, todo);
   }
 }

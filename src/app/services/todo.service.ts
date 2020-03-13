@@ -19,22 +19,26 @@ export class TodoService {
 
   // Get todos
   getTodos(): Observable<Todo[]> {
+    console.log("SERVICE - getToDos")
     return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
   }
 
   // Delete Todo
   deleteTodo(todo: Todo): Observable<Todo> {
+    console.log("SERVICE - deleteTodo", todo)
     const url = `${this.todosUrl}/${todo.id}`;
     return this.http.delete<Todo>(url, httpOptions);
   }
 
   // Add Todo
   addTodo(todo: Todo): Observable<Todo> {
+    console.log("SERVICE - addToDo", todo)
     return this.http.post<Todo>(this.todosUrl, todo, httpOptions);
   }
 
   // Toggle Completed
   toggleCompleted(todo: Todo): Observable<any> {
+    console.log("SERVICE - toggleCompleted", todo)
     const url = `${this.todosUrl}/${todo.id}`;
     return this.http.put(url, todo, httpOptions);
   }
